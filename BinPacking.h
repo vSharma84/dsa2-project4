@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: BinPacking.h
+  Assignment number: 4
+
+ Contains all the bin packing algorithmsand computes how many bins each 
+ method uses, including the optimal solution.
+***************************************************************/
 #ifndef BINPACKING_H
 #define BINPACKING_H
 

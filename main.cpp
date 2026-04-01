@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: main.cpp
+  Assignment number: 4
+
+ Reads the input from the file, calls the bin packing algorithms,
+ and prints the results and bin contents to the console.
+***************************************************************/
 #include <iostream>
 #include <fstream>
 #include <vector>

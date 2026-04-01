@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: Permutation.h
+  Assignment number: 4
+
+ Generates the next permutation of item indices using the perm1()
+ algorithm so all possible orderings can be tested.
+***************************************************************/
 #ifndef PERMUTATION_H
 #define PERMUTATION_H
 

@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: Bin.h
+  Assignment number: 4
+
+ Stores a group of items placed in the same bin and keeps track of
+ the remaining space to decide if new items can fit.
+***************************************************************/
 #ifndef BIN_H
 #define BIN_H
 
