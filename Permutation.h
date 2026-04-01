@@ -11,6 +11,13 @@
 
 class Permutation {
 public:
+    /***************************************************************
+    Function: perm1
+    Description: Generates the next permutation of the array.
+    Parameters: s[] (int array) - current permutation of indices
+                n (int) - number of elements in the array
+    Local Variables: m, k, p, q (int) - variables for swapping
+    ***************************************************************/
     static void perm1(int s[], int n)
     {
         int m = n - 2;
@@ -26,7 +33,6 @@ public:
         while (s[m] > s[k])
             k = k - 1;
 
-        // swap values
         int temp = s[m];
         s[m] = s[k];
         s[k] = temp;
