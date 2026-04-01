@@ -46,16 +46,14 @@ int main() {
     vector<Bin> offFF = BinPacking::firstFit(sorted);
     vector<Bin> offBF = BinPacking::bestFit(sorted);
 
-    int opt = BinPacking::optimal(items);
+    // 🔥 UPDATED: get optimal bins instead of just number
+    vector<Bin> optBins = BinPacking::optimalPacking(items);
+    int opt = optBins.size();
 
-    cout << "Policy                     Total Bins Used\n";
-    cout << "-----------------------------------------\n";
+    cout << "Policy                   Total Bins Used\n";
+    cout << "========================================\n";
 
-    if (opt == -1)
-        cout << "Optimal Solution          Not computed\n";
-    else
-        cout << "Optimal Solution          " << opt << endl;
-
+    cout << "Optimal Solution          " << opt << endl;
 
     cout << "\nOnline Algorithm\n";
     cout << "  First Fit               " << ff.size() << endl;
@@ -68,25 +66,22 @@ int main() {
 
     cout << "=========================================\n";
 
-    cout << "\n--- Optimal ---\n";
-    if (opt != -1)
-        cout << "(Computed using permutations)\n";
-    else
-        cout << "(Not computed due to input size)\n";
+    cout << "\nOptimal:\n";
+    BinPacking::printBins(optBins);
 
-    cout << "\n--- Online First Fit ---\n";
+    cout << "\nOnline First Fit:\n";
     BinPacking::printBins(ff);
 
-    cout << "\n--- Online Next Fit ---\n";
+    cout << "\nOnline Next Fit:\n";
     BinPacking::printBins(nf);
 
-    cout << "\n--- Online Best Fit ---\n";
+    cout << "\nOnline Best Fit:\n";
     BinPacking::printBins(bf);
 
-    cout << "\n--- Offline First Fit ---\n";
+    cout << "\nOffline First Fit:\n";
     BinPacking::printBins(offFF);
 
-    cout << "\n--- Offline Best Fit ---\n";
+    cout << "\nOffline Best Fit:\n";
     BinPacking::printBins(offBF);
 
     return 0;

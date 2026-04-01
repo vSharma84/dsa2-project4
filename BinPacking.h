@@ -3,7 +3,7 @@
   File Name: BinPacking.h
   Assignment number: 4
 
- Contains all the bin packing algorithmsand computes how many bins each 
+ Contains all the bin packing algorithms and computes how many bins each 
  method uses, including the optimal solution.
 ***************************************************************/
 #ifndef BINPACKING_H
@@ -21,7 +21,6 @@ using namespace std;
 class BinPacking {
 public:
 
-    // ---------------- FIRST FIT ----------------
     static vector<Bin> firstFit(vector<Item> items) {
         vector<Bin> bins;
 
@@ -46,7 +45,6 @@ public:
         return bins;
     }
 
-    // ---------------- NEXT FIT ----------------
     static vector<Bin> nextFit(vector<Item> items) {
         vector<Bin> bins;
         Bin current;
@@ -65,7 +63,6 @@ public:
         return bins;
     }
 
-    // ---------------- BEST FIT ----------------
     static vector<Bin> bestFit(vector<Item> items) {
         vector<Bin> bins;
 
@@ -96,7 +93,6 @@ public:
         return bins;
     }
 
-    // ---------------- SORT DESCENDING ----------------
     static vector<Item> sortDescending(vector<Item> items) {
         sort(items.begin(), items.end(), [](Item a, Item b) {
             return a.size > b.size;
@@ -104,8 +100,7 @@ public:
         return items;
     }
 
-    // ---------------- OPTIMAL (PERMUTATIONS + EARLY STOP) ----------------
-    static int optimal(vector<Item> items)
+    static vector<Bin> optimalPacking(vector<Item> items)
     {
         int n = items.size();
 
@@ -113,7 +108,6 @@ public:
         for (int i = 0; i < n; i++)
             s[i] = i;
 
-        // compute lower bound = ceil(sum of items)
         double sum = 0;
         for (int i = 0; i < n; i++)
             sum += items[i].size;
@@ -121,6 +115,7 @@ public:
         int lowerBound = (int)ceil(sum);
 
         int minBins = 1000000;
+        vector<Bin> bestBins;
 
         int total = 1;
         for (int i = 1; i <= n; i++)
@@ -136,19 +131,20 @@ public:
             vector<Bin> bins = firstFit(perm);
 
             if (bins.size() < minBins)
+            {
                 minBins = bins.size();
+                bestBins = bins;
+            }
 
-            // 🔥 EARLY STOP: cannot do better than lower bound
             if (minBins == lowerBound)
                 break;
 
             Permutation::perm1(s, n);
         }
 
-        return minBins;
+        return bestBins;
     }
 
-    // ---------------- PRINT BINS ----------------
     static void printBins(vector<Bin> bins) {
         for (int i = 0; i < bins.size(); i++) {
             cout << "b" << i + 1 << ": ";
