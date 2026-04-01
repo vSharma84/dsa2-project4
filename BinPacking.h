@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 #include "Bin.h"
 #include "Permutation.h"
 
@@ -87,7 +88,7 @@ public:
         return bins;
     }
 
-    // ---------------- OFFLINE (SORT DESC) ----------------
+    // ---------------- SORT DESCENDING ----------------
     static vector<Item> sortDescending(vector<Item> items) {
         sort(items.begin(), items.end(), [](Item a, Item b) {
             return a.size > b.size;
@@ -95,32 +96,46 @@ public:
         return items;
     }
 
-    // ---------------- OPTIMAL (BRUTE FORCE) ----------------
-    static int optimal(vector<Item> items) {
-        vector<double> arr;
+    // ---------------- OPTIMAL (PERMUTATIONS + EARLY STOP) ----------------
+    static int optimal(vector<Item> items)
+    {
+        int n = items.size();
 
-        for (int i = 0; i < items.size(); i++) {
-            arr.push_back(items[i].size);
-        }
+        int s[20];
+        for (int i = 0; i < n; i++)
+            s[i] = i;
 
-        sort(arr.begin(), arr.end());
+        // compute lower bound = ceil(sum of items)
+        double sum = 0;
+        for (int i = 0; i < n; i++)
+            sum += items[i].size;
+
+        int lowerBound = (int)ceil(sum);
 
         int minBins = 1000000;
 
-        do {
-            vector<Item> permItems;
+        int total = 1;
+        for (int i = 1; i <= n; i++)
+            total *= i;
 
-            for (int i = 0; i < arr.size(); i++) {
-                permItems.push_back(Item(arr[i]));
-            }
+        for (int count = 0; count < total; count++)
+        {
+            vector<Item> perm;
 
-            vector<Bin> bins = firstFit(permItems);
+            for (int i = 0; i < n; i++)
+                perm.push_back(items[s[i]]);
 
-            if (bins.size() < minBins) {
+            vector<Bin> bins = firstFit(perm);
+
+            if (bins.size() < minBins)
                 minBins = bins.size();
-            }
 
-        } while (Permutation::perm1(arr));
+            // 🔥 EARLY STOP: cannot do better than lower bound
+            if (minBins == lowerBound)
+                break;
+
+            Permutation::perm1(s, n);
+        }
 
         return minBins;
     }

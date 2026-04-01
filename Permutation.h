@@ -1,37 +1,40 @@
 #ifndef PERMUTATION_H
 #define PERMUTATION_H
 
-#include <vector>
-using namespace std;
-
 class Permutation {
 public:
-    static bool perm1(vector<double>& a) {
-        int n = a.size();
-        int i = n - 2;
+    static void perm1(int s[], int n)
+    {
+        int m = n - 2;
 
-        while (i >= 0 && a[i] >= a[i + 1])
-            i--;
+        while (m >= 0 && s[m] > s[m + 1])
+            m = m - 1;
 
-        if (i < 0)
-            return false;
+        if (m < 0)
+            return;
 
-        int j = n - 1;
-        while (a[j] <= a[i])
-            j--;
+        int k = n - 1;
 
-        swap(a[i], a[j]);
+        while (s[m] > s[k])
+            k = k - 1;
 
-        int left = i + 1;
-        int right = n - 1;
+        // swap values
+        int temp = s[m];
+        s[m] = s[k];
+        s[k] = temp;
 
-        while (left < right) {
-            swap(a[left], a[right]);
-            left++;
-            right--;
+        int p = m + 1;
+        int q = n - 1;
+
+        while (p < q)
+        {
+            temp = s[p];
+            s[p] = s[q];
+            s[q] = temp;
+
+            p++;
+            q--;
         }
-
-        return true;
     }
 };
 

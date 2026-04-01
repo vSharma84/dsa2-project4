@@ -1,4 +1,3 @@
-// main.cpp
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -31,26 +30,41 @@ int main() {
         items.push_back(Item(x));
     }
 
-    // ONLINE
     vector<Bin> ff = BinPacking::firstFit(items);
     vector<Bin> nf = BinPacking::nextFit(items);
     vector<Bin> bf = BinPacking::bestFit(items);
 
-    // OFFLINE
     vector<Item> sorted = BinPacking::sortDescending(items);
     vector<Bin> offFF = BinPacking::firstFit(sorted);
     vector<Bin> offBF = BinPacking::bestFit(sorted);
 
-    // OUTPUT TABLE
-    cout << "Policy\t\t\tBins Used\n";
-    cout << "---------------------------------\n";
+    int opt = BinPacking::optimal(items);
 
-    cout << "Optimal Solution\t(too large to compute fully)\n";
-    cout << "Online First Fit\t" << ff.size() << endl;
-    cout << "Online Next Fit\t\t" << nf.size() << endl;
-    cout << "Online Best Fit\t\t" << bf.size() << endl;
-    cout << "Offline First Fit\t" << offFF.size() << endl;
-    cout << "Offline Best Fit\t" << offBF.size() << endl;
+    cout << "Policy                     Total Bins Used\n";
+    cout << "-----------------------------------------\n";
+
+    if (opt == -1)
+        cout << "Optimal Solution          Not computed\n";
+    else
+        cout << "Optimal Solution          " << opt << endl;
+
+
+    cout << "\nOnline Algorithm\n";
+    cout << "  First Fit               " << ff.size() << endl;
+    cout << "  Next Fit                " << nf.size() << endl;
+    cout << "  Best Fit                " << bf.size() << endl;
+
+    cout << "\nOffline Algorithm\n";
+    cout << "  First Fit               " << offFF.size() << endl;
+    cout << "  Best Fit                " << offBF.size() << endl;
+
+    cout << "=========================================\n";
+
+    cout << "\n--- Optimal ---\n";
+    if (opt != -1)
+        cout << "(Computed using permutations)\n";
+    else
+        cout << "(Not computed due to input size)\n";
 
     cout << "\n--- Online First Fit ---\n";
     BinPacking::printBins(ff);
