@@ -9,7 +9,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <sys/time.h>
 #include "BinPacking.h"
 
 using namespace std;
@@ -47,16 +46,7 @@ int main() {
     vector<Bin> offFF = BinPacking::firstFit(sorted);
     vector<Bin> offBF = BinPacking::bestFit(sorted);
 
-    struct timeval start, end;
-
-    gettimeofday(&start, NULL);
-
     vector<Bin> optBins = BinPacking::optimalPacking(items);
-
-    gettimeofday(&end, NULL);
-
-    double seconds = (end.tv_sec - start.tv_sec) +
-                     (end.tv_usec - start.tv_usec) / 1000000.0;
 
     int opt = optBins.size();
 
@@ -75,8 +65,6 @@ int main() {
     cout << "  Best Fit                " << offBF.size() << endl;
 
     cout << "=========================================\n";
-
-    cout << "\nOptimal computation time: " << seconds << " seconds\n";
 
     cout << "\nOptimal:\n";
     BinPacking::printBins(optBins);
