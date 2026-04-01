@@ -1,9 +1,9 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -O2
 
 OBJS = main.o
 
-binpacking : $(OBJS)
+project4 : $(OBJS)
 	$(CXX) $(CXXFLAGS) -o project4 $(OBJS)
 
 main.o : main.cpp BinPacking.h Bin.h Item.h Permutation.h

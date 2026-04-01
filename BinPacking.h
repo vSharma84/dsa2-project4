@@ -164,16 +164,16 @@ public:
         int minBins = 1000000;
         vector<Bin> bestBins;
 
+        vector<Item> perm(n);
+
         int total = 1;
         for (int i = 1; i <= n; i++)
             total *= i;
 
         for (int count = 0; count < total; count++)
         {
-            vector<Item> perm;
-
             for (int i = 0; i < n; i++)
-                perm.push_back(items[s[i]]);
+                perm[i] = items[s[i]];
 
             vector<Bin> bins = firstFit(perm);
 
@@ -183,8 +183,8 @@ public:
                 bestBins = bins;
             }
 
-            if (minBins == lowerBound)
-                break;
+            //if (minBins == lowerBound)
+            //    break;
 
             Permutation::perm1(s, n);
         }
