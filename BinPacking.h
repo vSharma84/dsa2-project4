@@ -33,10 +33,10 @@ public:
     static vector<Bin> firstFit(vector<Item> items) {
         vector<Bin> bins;
 
-        for (int i = 0; i < items.size(); i++) {
+        for (size_t i = 0; i < items.size(); i++) {
             bool placed = false;
 
-            for (int j = 0; j < bins.size(); j++) {
+            for (size_t j = 0; j < bins.size(); j++) {
                 if (bins[j].canFit(items[i])) {
                     bins[j].addItem(items[i]);
                     placed = true;
@@ -67,7 +67,7 @@ public:
         vector<Bin> bins;
         Bin current;
 
-        for (int i = 0; i < items.size(); i++) {
+        for (size_t i = 0; i < items.size(); i++) {
             if (current.canFit(items[i])) {
                 current.addItem(items[i]);
             } else {
@@ -94,11 +94,11 @@ public:
     static vector<Bin> bestFit(vector<Item> items) {
         vector<Bin> bins;
 
-        for (int i = 0; i < items.size(); i++) {
+        for (size_t i = 0; i < items.size(); i++) {
             int bestIndex = -1;
             double minSpace = 2.0;
 
-            for (int j = 0; j < bins.size(); j++) {
+            for (size_t j = 0; j < bins.size(); j++) {
                 if (bins[j].canFit(items[i])) {
                     double space = bins[j].remaining - items[i].size;
 
@@ -142,7 +142,6 @@ public:
      Local Variables:
         s[] (int array) - stores permutation indices
         sum (double) - total size of all items
-        lowerBound (int) - minimum possible bins
         minBins (int) - smallest number of bins found
         bestBins (vector<Bin>) - stores best packing arrangement
      Returns: vector<Bin> - bins representing optimal packing
@@ -159,7 +158,6 @@ public:
         for (int i = 0; i < n; i++)
             sum += items[i].size;
 
-        int lowerBound = (int)ceil(sum);
 
         int minBins = 1000000;
         vector<Bin> bestBins;
@@ -177,7 +175,7 @@ public:
 
             vector<Bin> bins = firstFit(perm);
 
-            if (bins.size() < minBins)
+            if (int(bins.size()) < minBins)
             {
                 minBins = bins.size();
                 bestBins = bins;
@@ -199,9 +197,9 @@ public:
         bins (vector<Bin>) - bins to display
     ***************************************************************/
     static void printBins(vector<Bin> bins) {
-        for (int i = 0; i < bins.size(); i++) {
+        for (size_t i = 0; i < bins.size(); i++) {
             cout << "b" << i + 1 << ": ";
-            for (int j = 0; j < bins[i].items.size(); j++) {
+            for (size_t j = 0; j < bins[i].items.size(); j++) {
                 cout << bins[i].items[j].size << " ";
             }
             cout << endl;
